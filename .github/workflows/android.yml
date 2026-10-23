@@ -28,11 +28,13 @@ jobs:
 
             
       
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
+              
       - name: Accept Android SDK licenses
-        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses || true
+        run: |
+          mkdir -p "$ANDROID_HOME/licenses"
+          touch "$ANDROID_HOME/licenses/android-sdk-license"
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses || true
+          
         
   
         
