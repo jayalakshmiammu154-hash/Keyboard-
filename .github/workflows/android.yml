@@ -51,6 +51,10 @@ jobs:
           sed -i 's/setBackgroundColor(background)/setBackgroundColor(bgColor)/' $F
           sed -i 's/KeyboardPrefs.gap(this)/KeyboardPrefs.gap(this@NeonKeyboardService)/g' $F
           sed -i 's/" )"/")"/' $F
+          sed -i 's/setPadding(4, 6, 4, 6)/setPadding(4, 6, 4, 90)/' $F
+          S=project/app/src/main/java/com/example/neonkeys/SettingsActivity.kt
+          sed -i 's/LinearLayout.LayoutParams(0, 52, 1f)/LinearLayout.LayoutParams(0, 52.dp(), 1f)/g' $S
+          sed -i 's/^        setContentView(root)$/        setContentView(root)\n        root.setOnApplyWindowInsetsListener { v, i -> v.setPadding(18 + i.systemWindowInsetLeft, 22 + i.systemWindowInsetTop, 18 + i.systemWindowInsetRight, 18 + i.systemWindowInsetBottom); i }/' $S
 
       - name: Build debug APK
         working-directory: project
