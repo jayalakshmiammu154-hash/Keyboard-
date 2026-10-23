@@ -44,6 +44,13 @@ jobs:
 
       - name: Extract project
         run: unzip -q NeonKeysAndroid.zip -d project
+      - name: Fix code
+        run: |
+          F=project/app/src/main/java/com/example/neonkeys/NeonKeyboardService.kt
+          sed -i 's/private val background = /private val bgColor = /' $F
+          sed -i 's/setBackgroundColor(background)/setBackgroundColor(bgColor)/' $F
+          sed -i 's/KeyboardPrefs.gap(this)/KeyboardPrefs.gap(this@NeonKeyboardService)/g' $F
+          sed -i 's/" )"/")"/' $F
 
       - name: Build debug APK
         working-directory: project
